@@ -1,0 +1,126 @@
+﻿http://stackoverflow.com/questions/17268970/how-to-set-user-login-windows-phone-8-using-sqlite-database
+
+
+
+
+ublic static class dal
+		{
+			public static SQLiteAsyncConnection connection;
+			public static bool isDatabaseExisting;
+
+			 public static async void ConnectToDB()
+			 {
+						try
+						{
+							StorageFile storageFile = await ApplicationData.Current.LocalFolder.GetFileAsync("Bestin.sqlite");
+							isDatabaseExisting = true;
+						}
+						catch (Exception ex)
+						{
+							isDatabaseExisting = false;
+						}
+
+						if (!isDatabaseExisting)
+						{
+							try
+							{
+								StorageFile databaseFile = await Package.Current.InstalledLocation.GetFileAsync("Bestin.sqlite");
+								await databaseFile.CopyAsync(ApplicationData.Current.LocalFolder);
+								isDatabaseExisting = true;
+							}
+							catch (Exception ex)
+							{
+								isDatabaseExisting = false;
+							}
+						}
+
+						if (isDatabaseExisting)
+						{
+
+							connection = new SQLiteAsyncConnection(Path.Combine(ApplicationData.Current.LocalFolder.Path, "Bestin.sqlite"), true);
+
+						}
+			   }
+	   }
+
+make a class like above code for your database connection and call this at your application startup like this dal.ConnectToDB();
+
+then in your loginpage do like this...
+
+
+private void Click_Login(object sender, RoutedEventArgs e)
+		{
+
+			var query = dal.connection.QueryAsync<Task>("SELECT * FROM Task Where Email=" + "\'" + txtEmailaddress.Text + "\'" + "and Password=" + "\'" + txtPassword.Password + "\'").Result;
+
+		   if(query == null)
+		   {
+			 // invalid Login credentials
+		   }    
+		   else
+		   {
+			 // do login
+		   }
+		}
+
+
+		http://conversations.nokia.com/2014/05/26/sweet-dreams-windows-apps-better-sleep/
+
+		http://msdn.microsoft.com/en-US/library/windowsphone/develop/hh286405(v=vs.105).aspx
+		http://code.msdn.microsoft.com/Highlight-a-selected-item-30ced444
+
+		http://blogs.msdn.com/b/bingdevcenter/archive/2014/06/04/how-to-launch-maps-in-a-universal-app.aspx
+		HERE API and HERE app launchers
+		http://developer.nokia.com/lumia/nokia-apis/mapping
+
+
+		http://json2csharp.com/
+
+		http://dotnetbyexample.blogspot.in/2013/05/windows-phone-8-navigation-part.html
+
+		SQLite with a bit of MVVM Light in Windows Phone 8
+		http://www.spikie.be/blog/post/2013/01/29/SQLite-in-Windows-Phone-8.aspx
+		http://www.spikie.be/blog/post/2013/02/05/SQLite-in-Windows-Phone-8-The-sequel.aspx
+		LLS SelectedItem binding through a behavior
+		http://www.spikie.be/blog/post/2014/01/10/.aspx
+		Building a REST API and consuming it in WP8
+		http://www.spikie.be/blog/post/2014/03/28/.aspx
+		Cimbalino Windows Phone Toolkit
+		http://cimbalino.org/
+
+		A new SQLite wrapper for Windows Phone 8 and Windows 8 – Relationships
+		http://wp.qmatteoq.com/tag/sqlite/
+
+		A new SQLite wrapper for Windows Phone 8 and Windows 8 – The basics
+		http://wp.qmatteoq.com/a-new-sqlite-wrapper-for-windows-phone-8-and-windows-8-the-basics/
+
+		A workaround to use SQLite in a Windows Phone 8 application
+		http://wp.qmatteoq.com/a-workaround-to-use-sqlite-in-a-windows-phone-8-application/
+
+		Working with SQLite in Windows Phone 8: a sqlite-net version for mobile
+		http://wp.qmatteoq.com/working-with-sqlite-in-windows-phone-8-a-sqlite-net-version-for-mobile/
+
+		Maps in Windows Phone 8 and Phone toolkit: a winning team – Part 1
+		http://wp.qmatteoq.com/maps-in-windows-phone-8-and-phone-toolkit-a-winning-team-part-1/
+
+		Maps in Windows Phone 8 and Phone toolkit: a winning team – Part 2
+		http://wp.qmatteoq.com/maps-in-windows-phone-8-and-phone-toolkit-a-winning-team-part-2
+
+
+		How to use SQLite in Windows Phone
+		Getting database file using the Isolated Storage Explorer tool
+		http://developer.nokia.com/community/wiki/Adding_support_to_Sqlite_for_Windows_Phone_8_applications
+
+
+		Designing for Windows Phone
+		http://developer.nokia.com/resources/library/Lumia/designing-for-windows-phone.html
+
+		Dynamic Layout Sample
+		http://developer.nokia.com/resources/library/Lumia/code-examples/dynamic-layout-sample.html
+
+
+
+
+
+
+
