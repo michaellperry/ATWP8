@@ -9,6 +9,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Controls;
 
 namespace AlarmingTrafficWP8.ViewModel
@@ -19,29 +20,26 @@ namespace AlarmingTrafficWP8.ViewModel
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
-    public class LocationViewModel : ViewModelBase
+    public class LocationViewModel<TLocation> : ViewModelBase
+        where TLocation : Location, new()
     {
         private readonly ILocationDataService _locationDataService;
         private readonly INavigationService _navigationService;
 
-        private ObservableCollection<LocationUS> _locations;
+        private ObservableCollection<TLocation> _locations = new ObservableCollection<TLocation>();
 
-        public ObservableCollection<LocationUS> Locations
+        public ObservableCollection<TLocation> Locations
         {
             get
             {
                 return this._locations;
             }
-            set
-            {
-                Set(() => Locations, ref _locations, value);
-            }
         }
 
 
-        private LocationUS _selectedLocation;
+        private TLocation _selectedLocation;
 
-        public LocationUS SelectedLocation
+        public TLocation SelectedLocation
         {
             get { return this._selectedLocation; }
             set
@@ -51,9 +49,9 @@ namespace AlarmingTrafficWP8.ViewModel
         }
 
 
-        private LocationUS _newLocation;
+        private TLocation _newLocation;
 
-        public LocationUS NewLocation
+        public TLocation NewLocation
         {
             get
             {
@@ -98,24 +96,25 @@ namespace AlarmingTrafficWP8.ViewModel
 
             GoBackCommand = new RelayCommand(GoBack);
 
-            Locations = new ObservableCollection<LocationUS>();
-
-            NewLocation = new LocationUS();
+            NewLocation = new TLocation();
 
             LoadLocations();
         }
 
 
         private async void LoadLocations()
-        {            
-            Locations = await _locationDataService.LoadLocations();
+        {
+            _locations.Clear();
+            var locations = await _locationDataService.LoadLocations();
+            foreach (var location in locations.OfType<TLocation>())
+                _locations.Add(location);
         }
 
         private async void SaveNewLocation()
         {
             await _locationDataService.SaveLocation(NewLocation);
             LoadLocations();
-            NewLocation = new LocationUS();
+            NewLocation = new TLocation();
         }
 
 
@@ -124,7 +123,7 @@ namespace AlarmingTrafficWP8.ViewModel
         {
             if (args.AddedItems.Count > 0)
             {
-                Messenger.Default.Send(new LocationSelectedMessage(args.AddedItems[0] as LocationUS));
+                Messenger.Default.Send(new LocationSelectedMessage(args.AddedItems[0] as TLocation));
                 _navigationService.NavigateTo(new Uri(@"/View/LocationEditView.xaml", UriKind.Relative));
             }
         }

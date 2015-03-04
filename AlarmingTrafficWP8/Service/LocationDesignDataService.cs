@@ -1,4 +1,5 @@
 ﻿using AlarmingTrafficWP8.Model;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -12,9 +13,9 @@ namespace AlarmingTrafficWP8.Service
             await App.Connection.InsertAsync(newLocation);
         }
                 
-         public async Task<ObservableCollection<LocationUS>> LoadLocations() //Task<ObservableCollection<LocationUS>> LoadLocations()
+         public async Task<List<Location>> LoadLocations() //Task<ObservableCollection<LocationUS>> LoadLocations()
         {
-            var result = new ObservableCollection<LocationUS>();
+            var result = new List<Location>();
 
             for (int i = 0; i < 4; i++)
             {

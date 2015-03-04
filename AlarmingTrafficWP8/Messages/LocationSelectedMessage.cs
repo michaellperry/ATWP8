@@ -21,9 +21,9 @@ namespace AlarmingTrafficWP8.Messages
 
 
         
-        public Model.LocationUS Location { get; set; }
+        public Model.Location Location { get; set; }
 
-        public LocationSelectedMessage(Model.LocationUS location)
+        public LocationSelectedMessage(Model.Location location)
         {
             Location = location;
         }

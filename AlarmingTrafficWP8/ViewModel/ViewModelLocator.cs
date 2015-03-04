@@ -77,17 +77,17 @@ namespace AlarmingTrafficWP8.ViewModel
 
 
             //SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<LocationViewModel>();
+            SimpleIoc.Default.Register<LocationViewModel<LocationUS>>();
             SimpleIoc.Default.Register<LocationEditViewModel>(true);
             //SimpleIoc.Default.Register<LocationEditViewModel>();
             SimpleIoc.Default.Register<RouteViewModel>();
             //SimpleIoc.Default.Register<RouteEditViewModel>(true);
         }
 
-        public LocationViewModel LocationViewModel
+        public LocationViewModel<LocationUS> LocationViewModel
         {
             //get { return SimpleIoc.Default.GetInstance<LocationViewModel>(); }
-            get { return ServiceLocator.Current.GetInstance<LocationViewModel>(); }
+            get { return ServiceLocator.Current.GetInstance<LocationViewModel<LocationUS>>(); }
         }
 
         public LocationEditViewModel LocationEditViewModel
