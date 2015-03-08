@@ -1,19 +1,12 @@
-﻿using GalaSoft.MvvmLight;
-using System.Text;
-using System;
-using SQLite;
-
-namespace AlarmingTrafficWP8.Model
-{
-    [Table("LocationsUS")]
-    public class LocationUS : Location
-    {
+﻿ [Table("LocationsXX")]
+    public class LocationXX : Location
+    {        
         private string _LocationCity;
         private string _LocationState;
         private string _LocationZIP;
-
-
-
+       
+                
+        
         public string LocationCity
         {
             get { return _LocationCity; }
@@ -25,20 +18,20 @@ namespace AlarmingTrafficWP8.Model
                 }
             }
         }
-
+        
         [MaxLength(2)]
         public string LocationState
         {
             get { return _LocationState; }
             set
-            {
+            {                
                 if (Set(() => LocationState, ref _LocationState, value))
                 {
                     IsDirty = true;
                 }
             }
         }
-
+        
         [MaxLength(5)]
         public string LocationZIP
         {
@@ -50,10 +43,10 @@ namespace AlarmingTrafficWP8.Model
                     IsDirty = true;
                 }
             }
-        }
+        }       
 
 
-        /// <summary>
+		/// <summary>
         /// Create a return string with the whole address
         /// </summary>
         [Ignore]
@@ -61,18 +54,20 @@ namespace AlarmingTrafficWP8.Model
         {
             get
             {
-                return String.Format("{0}, {1}, {2}, {3}",
-                    LocationStreetAddress, LocationCity, LocationState, LocationZIP);
+                return String.Format("{0}, {1}, {2}, {3}", 
+                    LocationStreetAddress, LocationCity, LocationState, LocationZIP);  // street, city, st, zip
             }
 
         }
 
+
         // Create a copy of an location to save.
         // If your object is databound, this copy is not databound.        
-        public LocationUS GetCopy()
+        public LocationXX GetCopy()
         {
-            LocationUS copy = (LocationUS)this.MemberwiseClone();
+            LocationXX copy = (LocationXX)this.MemberwiseClone();
             return copy;
         }
-    }
-}
+	}
+
+	// http://sustainablesources.com/resources/country-abbreviations/
