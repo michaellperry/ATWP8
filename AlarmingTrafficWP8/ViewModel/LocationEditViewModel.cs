@@ -35,14 +35,14 @@ namespace AlarmingTrafficWP8.ViewModel
         private readonly ILocationDataService _locationDataService;
         private readonly INavigationService _navigationService;
 
-        private LocationUS _selectedLocation;
+        private Location _selectedLocation;
         //private GeoCoordinate geo1 = null;
         private GeoCoordinate mapCenter = new GeoCoordinate(40.712923, -74.013292);
 
         /// <summary>
         /// Sets and gets the SelectedLocation property.
         /// </summary>
-        public LocationUS SelectedLocation
+        public Location SelectedLocation
         {
             get
             {
@@ -81,7 +81,7 @@ namespace AlarmingTrafficWP8.ViewModel
 
         private void UpdateLocation()
         {
-            _locationDataService.UpdateLocation(SelectedLocation);            
+            _locationDataService.UpdateLocation(SelectedLocation);
             GoBack();
         }
 
@@ -89,7 +89,7 @@ namespace AlarmingTrafficWP8.ViewModel
 
         private void DeleteLocation()
         {
-            _locationDataService.DeleteLocation(SelectedLocation);
+            _locationDataService.DeleteLocation(SelectedLocation);            
             GoBack();
         }
 
@@ -106,7 +106,6 @@ namespace AlarmingTrafficWP8.ViewModel
         public override void Cleanup()
         {
             base.Cleanup();
-
         }
 
 

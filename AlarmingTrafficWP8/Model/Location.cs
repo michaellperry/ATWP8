@@ -19,6 +19,9 @@ namespace AlarmingTrafficWP8.Model
         private string _LocationStreetAddress;
 
 
+        public Location() { }
+
+
         /// <summary>
         /// You can create an integer primary key and let the SQLite control it.
         /// </summary>
@@ -41,7 +44,8 @@ namespace AlarmingTrafficWP8.Model
             get { return _isDirty; }
             set { Set(() => IsDirty, ref _isDirty, value); }
         }
-                
+
+        [NotNull]
         public string LocationName
         {
             get { return _LocationName; }
@@ -78,6 +82,7 @@ namespace AlarmingTrafficWP8.Model
         //    }
         //}
 
+        [NotNull]
         public string LocationStreetAddress
         {
             get { return _LocationStreetAddress; }
