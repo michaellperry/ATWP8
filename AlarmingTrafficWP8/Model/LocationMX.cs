@@ -12,7 +12,7 @@ namespace AlarmingTrafficWP8.Model
     public class LocationMX : Location
     {
         private string _Village;
-        private string _Postcode;
+        private string _PostCode;
         private string _Locality;
         private string _Province;
 
@@ -31,12 +31,12 @@ namespace AlarmingTrafficWP8.Model
 
 
         [MaxLength(5)]
-        public string Postcode
+        public string PostCode
         {
-            get { return _Postcode; }
+            get { return _PostCode; }
             set
             {
-                if (Set(() => Postcode, ref _Postcode, value))
+                if (Set(() => PostCode, ref _PostCode, value))
                 {
                     IsDirty = true;
                 }
@@ -81,7 +81,7 @@ namespace AlarmingTrafficWP8.Model
             get
             {
                 return String.Format("{0}, {1}, {2}, {3}, {4}",
-                    LocationStreetAddress, Village, Postcode, Locality, Province);
+                    LocationStreetAddress, Village, PostCode, Locality, Province);
             }
 
         }
