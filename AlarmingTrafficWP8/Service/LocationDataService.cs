@@ -11,18 +11,17 @@ namespace AlarmingTrafficWP8.Service
 {
     public class LocationDataService : ILocationDataService
     {
-        //private ObservableCollection<LocationUS> _locations = null; // new ObservableCollection<Location>();
+        private ObservableCollection<LocationUS> _locations = null; // new ObservableCollection<Location>();
 
-        public async Task SaveLocation<T>(T newLocation)
+        public async Task SaveLocation<T>(T newLocationUS)
         {
-            await App.Connection.InsertAsync(newLocation);
+            await App.Connection.InsertAsync(newLocationUS);
         }
 
         // Must be upgraded to return any/all Location Data
-        public async Task<List<Location>> LoadLocations()
+        public async Task<ObservableCollection<LocationUS>> LoadLocations()
         {
-            var locations = new List<Location>();
-            //_locations = new ObservableCollection<LocationUS>();
+            _locations = new ObservableCollection<LocationUS>();
 
             //ObservableCollection<T> _locations = new ObservableCollection<T>();            
             //List<object> tableList = null;
@@ -68,18 +67,18 @@ namespace AlarmingTrafficWP8.Service
 
                 foreach (var item in list)
                 {
-                    locations.Add(item);
+                    this._locations.Add(item);
                 }
             }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.ToString());
 
-                locations = null;
+                _locations = null;
             }
 
 
-            return locations;
+            return _locations;
         }
 
         public async Task UpdateLocation<T>(T selectedLocation)

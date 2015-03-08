@@ -9,8 +9,8 @@
                             xmlns:command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras"
                             xmlns:behaviors="clr-namespace:Cimbalino.Phone.Toolkit.Behaviors;assembly=Cimbalino.Phone.Toolkit"
                             xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-                            xmlns:telerikData="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Data"
-                            xmlns:AlarmingTrafficWP8_Behaviors="clr-namespace:AlarmingTrafficWP8.Behaviors"
+                            xmlns:telerikData="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Data"                            
+                            xmlns:AlarmingTrafficWP8_Behaviors="clr-namespace:AlarmingTrafficWP8.Behaviors"                                                        
                             xmlns:ignore="http://www.ignore.com"
                             mc:Ignorable="d ignore"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -21,9 +21,6 @@
                             shell:SystemTray.IsVisible="True"
                             DataContext="{Binding LocationViewModel, Source={StaticResource Locator}}">
     <phone:PhoneApplicationPage.Resources>
-        <phone:JumpListItemBackgroundConverter x:Key="BackgroundConverter" />
-        <phone:JumpListItemForegroundConverter x:Key="ForegroundConverter" />
-
         <DataTemplate x:Key="LocationListItemTemplate">
             <StackPanel Orientation="Vertical">
                 <TextBlock x:Name="LocationName"
@@ -73,16 +70,8 @@
     </phone:PhoneApplicationPage.ApplicationBar>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <!-- <Grid x:Name="LayoutRoot" Background="Transparent"> -->
-    <Grid x:Name="LayoutRoot">
-        <Grid.Background>
-            <RadialGradientBrush>
-                <GradientStop Color="{StaticResource PhoneAccentColor}"
-                              Offset="0" />
-                <GradientStop Color="{StaticResource PhoneBackgroundColor}"
-                              Offset="1" />
-            </RadialGradientBrush>
-        </Grid.Background>
+    <Grid x:Name="LayoutRoot"
+          Background="Transparent">
         <!--  Bindable Appbar buttons  -->
         <i:Interaction.Behaviors>
             <behaviors:ApplicationBarBehavior>
@@ -211,7 +200,7 @@
                         <AlarmingTrafficWP8_Behaviors:SelectedItemBehavior SelectedItem="{Binding SelectedLocation, Mode=TwoWay}" />
                     </i:Interaction.Behaviors>-->
                     <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
+                        <i:EventTrigger EventName="SelectionChanged">                            
                             <AlarmingTrafficWP8_Behaviors:CustomCommandAction Command="{Binding SelectionChangedCommand}" />
                         </i:EventTrigger>
 

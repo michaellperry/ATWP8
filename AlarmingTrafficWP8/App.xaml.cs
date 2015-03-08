@@ -39,21 +39,9 @@ namespace AlarmingTrafficWP8
         //    }
         //}
 
-        private static AppSettings _settings;
         private bool _reset;
         private static readonly string _dbPath =
             Path.Combine(ApplicationData.Current.LocalFolder.Path, "alarmingtrafficDB.db");
-
-
-        public static AppSettings Settings
-        {
-            get
-            {
-                if (_settings == null)
-                    _settings = new AppSettings();
-                return _settings;
-            }
-        }
 
 
         /// <summary>

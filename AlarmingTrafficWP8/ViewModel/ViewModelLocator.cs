@@ -77,47 +77,18 @@ namespace AlarmingTrafficWP8.ViewModel
 
 
             //SimpleIoc.Default.Register<MainViewModel>();
-            //SimpleIoc.Default.Register<LocationViewModel>();
-            // Register a VM for each country model
-            SimpleIoc.Default.Register<LocationViewModel<LocationUS>>();
-            SimpleIoc.Default.Register<LocationViewModel<LocationCA>>();
-            SimpleIoc.Default.Register<LocationViewModel<LocationMX>>();
+            SimpleIoc.Default.Register<LocationViewModel>();
             SimpleIoc.Default.Register<LocationEditViewModel>(true);
             //SimpleIoc.Default.Register<LocationEditViewModel>();
             SimpleIoc.Default.Register<RouteViewModel>();
             //SimpleIoc.Default.Register<RouteEditViewModel>(true);
         }
 
-        //public LocationViewModel LocationViewModel
-        //{
-        //    //get { return SimpleIoc.Default.GetInstance<LocationViewModel>(); }
-        //    get { return ServiceLocator.Current.GetInstance<LocationViewModel>(); }
-        //}
-
-
-        // Rename variable to LocationViewXX where XX is Country Abbreviation 
-        // Going to be making UserControls the second part of the [country] addresses 
-        public LocationViewModel<LocationUS> LocationViewModel
+        public LocationViewModel LocationViewModel
         {
-            get { return ServiceLocator.Current.GetInstance<LocationViewModel<LocationUS>>(); }
+            //get { return SimpleIoc.Default.GetInstance<LocationViewModel>(); }
+            get { return ServiceLocator.Current.GetInstance<LocationViewModel>(); }
         }
-
-        public LocationViewModel<LocationCA> LocationCAViewModel
-        {
-            get { return ServiceLocator.Current.GetInstance<LocationViewModel<LocationCA>>(); }
-        }
-
-        public LocationViewModel<LocationMX> LocationMXViewModel
-        {
-            get { return ServiceLocator.Current.GetInstance<LocationViewModel<LocationMX>>(); }
-        }
-
-        //public T GetInstance<T>()
-        //{
-        //    return ServiceLocator.Current.GetInstance<T>();
-        //}
-
-      
 
         public LocationEditViewModel LocationEditViewModel
         {
@@ -139,9 +110,6 @@ namespace AlarmingTrafficWP8.ViewModel
             // TODO Clear the ViewModels
 
             Instance.LocationEditViewModel.Cleanup();
-            Instance.LocationViewModel.Cleanup();
-            Instance.LocationCAViewModel.Cleanup();
-            Instance.LocationMXViewModel.Cleanup();
             Instance.LocationViewModel.Cleanup();
             // Instance.RouteEditViewModel.Cleanup();
             Instance.RouteViewModel.Cleanup();

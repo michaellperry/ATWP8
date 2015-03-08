@@ -1,6 +1,4 @@
 ﻿using GalaSoft.MvvmLight;
-using System.Text;
-using System;
 using SQLite;
 
 namespace AlarmingTrafficWP8.Model
@@ -8,12 +6,78 @@ namespace AlarmingTrafficWP8.Model
     [Table("LocationsUS")]
     public class LocationUS : Location
     {
+        //private int _id;
+        //private bool _isDirty;
+        //private string _LocationName;
+        //private string _LocationStreetNum;
+        //private string _LocationStreetAddress;
         private string _LocationCity;
         private string _LocationState;
         private string _LocationZIP;
+       
 
 
+        ///// <summary>
+        ///// You can create an integer primary key and let the SQLite control it.
+        ///// </summary>
+        //[PrimaryKey, AutoIncrement]
+        //public int Id
+        //{
+        //    get
+        //    {
+        //        return _id;
+        //    }
+        //    set
+        //    {
+        //        Set(() => Id, ref _id, value);
+        //    }
+        //}
 
+        //[Ignore]
+        //public bool IsDirty
+        //{
+        //    get { return _isDirty; }
+        //    set { Set(() => IsDirty, ref _isDirty, value); }
+        //}
+
+
+        //public string LocationName
+        //{
+        //    get { return _LocationName; }
+        //    set
+        //    {
+        //        if (Set(() => LocationName, ref _LocationName, value))
+        //        {
+        //            IsDirty = true;
+        //        }
+        //    }
+        //}
+
+
+        //public string LocationStreetNum
+        //{
+        //    get { return _LocationStreetNum; }
+        //    set
+        //    {
+        //        if (Set(() => LocationStreetNum, ref _LocationStreetNum, value))
+        //        {
+        //            IsDirty = true;
+        //        }
+        //    }
+        //}
+        
+        //public string LocationStreetAddress
+        //{
+        //    get { return _LocationStreetAddress; }
+        //    set
+        //    {
+        //        if (Set(() => LocationStreetAddress, ref _LocationStreetAddress, value))
+        //        {
+        //            IsDirty = true;
+        //        }
+        //    }
+        //}
+        
         public string LocationCity
         {
             get { return _LocationCity; }
@@ -25,20 +89,20 @@ namespace AlarmingTrafficWP8.Model
                 }
             }
         }
-
+        
         [MaxLength(2)]
         public string LocationState
         {
             get { return _LocationState; }
             set
-            {
+            {                
                 if (Set(() => LocationState, ref _LocationState, value))
                 {
                     IsDirty = true;
                 }
             }
         }
-
+        
         [MaxLength(5)]
         public string LocationZIP
         {
@@ -50,22 +114,8 @@ namespace AlarmingTrafficWP8.Model
                     IsDirty = true;
                 }
             }
-        }
+        }       
 
-
-        /// <summary>
-        /// Create a return string with the whole address
-        /// </summary>
-        [Ignore]
-        public string FullAddress
-        {
-            get
-            {
-                return String.Format("{0}, {1}, {2}, {3}",
-                    LocationStreetAddress, LocationCity, LocationState, LocationZIP);
-            }
-
-        }
 
         // Create a copy of an location to save.
         // If your object is databound, this copy is not databound.        

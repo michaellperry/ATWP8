@@ -8,8 +8,7 @@ namespace AlarmingTrafficWP8.Service
     public interface ILocationDataService
     {
         Task SaveLocation<T>(T newLocation);
-        //Task<ObservableCollection<T>> LoadLocations();
-        Task<List<Location>> LoadLocations();
+        Task<ObservableCollection<LocationUS>> LoadLocations();
         Task UpdateLocation<T>(T selectedLocation);
         Task DeleteLocation<T>(T selectedLocation);
     }

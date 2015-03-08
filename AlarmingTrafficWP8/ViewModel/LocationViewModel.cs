@@ -9,7 +9,6 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Controls;
 
 namespace AlarmingTrafficWP8.ViewModel
@@ -20,29 +19,29 @@ namespace AlarmingTrafficWP8.ViewModel
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
-    public class LocationViewModel<TLocation> : ViewModelBase where TLocation : Location, new()
+    public class LocationViewModel : ViewModelBase
     {
         private readonly ILocationDataService _locationDataService;
         private readonly INavigationService _navigationService;
 
-        private ObservableCollection<TLocation> _locations = new ObservableCollection<TLocation>();
+        private ObservableCollection<LocationUS> _locations;
 
-        public ObservableCollection<TLocation> Locations
+        public ObservableCollection<LocationUS> Locations
         {
             get
             {
                 return this._locations;
             }
-            //set
-            //{
-            //    Set(() => Locations, ref _locations, value);
-            //}
+            set
+            {
+                Set(() => Locations, ref _locations, value);
+            }
         }
 
 
-        private TLocation _selectedLocation;
+        private LocationUS _selectedLocation;
 
-        public TLocation SelectedLocation
+        public LocationUS SelectedLocation
         {
             get { return this._selectedLocation; }
             set
@@ -52,9 +51,9 @@ namespace AlarmingTrafficWP8.ViewModel
         }
 
 
-        private TLocation _newLocation;
+        private LocationUS _newLocation;
 
-        public TLocation NewLocation
+        public LocationUS NewLocation
         {
             get
             {
@@ -80,8 +79,7 @@ namespace AlarmingTrafficWP8.ViewModel
             get
             {
                 //return new RelayCommand<SelectionChangedEventArgs>(SelectionChanged);
-                return _selectionChangedCommand ?? (_selectionChangedCommand = 
-                    new RelayCommand<SelectionChangedEventArgs>(SelectionChanged));
+                return _selectionChangedCommand ?? (_selectionChangedCommand = new RelayCommand<SelectionChangedEventArgs>(SelectionChanged));
             }
         }
 
@@ -100,29 +98,24 @@ namespace AlarmingTrafficWP8.ViewModel
 
             GoBackCommand = new RelayCommand(GoBack);
 
-            NewLocation = new TLocation();
+            Locations = new ObservableCollection<LocationUS>();
+
+            NewLocation = new LocationUS();
 
             LoadLocations();
         }
 
 
         private async void LoadLocations()
-        {
-            //Locations = await _locationDataService.LoadLocations();
-            _locations.Clear();
-            var locations = await _locationDataService.LoadLocations();
-            if (locations != null)
-            {
-                foreach (var location in locations.OfType<TLocation>())
-                    _locations.Add(location); 
-            }
+        {            
+            Locations = await _locationDataService.LoadLocations();
         }
 
         private async void SaveNewLocation()
         {
             await _locationDataService.SaveLocation(NewLocation);
             LoadLocations();
-            NewLocation = new TLocation();
+            NewLocation = new LocationUS();
         }
 
 
@@ -131,7 +124,7 @@ namespace AlarmingTrafficWP8.ViewModel
         {
             if (args.AddedItems.Count > 0)
             {
-                Messenger.Default.Send(new LocationSelectedMessage(args.AddedItems[0] as TLocation));
+                Messenger.Default.Send(new LocationSelectedMessage(args.AddedItems[0] as LocationUS));
                 _navigationService.NavigateTo(new Uri(@"/View/LocationEditView.xaml", UriKind.Relative));
             }
         }
